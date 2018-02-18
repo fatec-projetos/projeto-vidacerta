@@ -12,3 +12,6 @@ Vida certa é um projeto desenvolvido com o objetivo de auxiliar o controle fina
 
 # Instituição / Professor
 > Fatec São José do Rio Preto / Cleriston Araujo Chiuchi
+
+# Licença
+O projeto é distribuido sobre a licença MIT.
