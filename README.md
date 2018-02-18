@@ -8,4 +8,4 @@ Vida certa é um projeto desenvolvido com o objetivo de auxiliar o controle fina
   - Hibernate - ORM
 
 # Autor
-Hiago Silva Souza <hiasilva@gmail.com>
+> Hiago Silva Souza <<hiasilva@gmail.com>>
