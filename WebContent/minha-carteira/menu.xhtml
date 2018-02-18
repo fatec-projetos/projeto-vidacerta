@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="formMenu">
+		<p:menubar>
+			<p:menuitem outcome="/minha-carteira/contas.xhtml" icon="fa fa-tachometer" value="Dashboards"/>
+			<p:menuitem outcome="/minha-carteira/contas.xhtml" icon="fa fa-th-list" value="Transações"/>
+			<p:menuitem outcome="/minha-carteira/contas.xhtml" icon="fa fa-bank" value="Contas"/>
+			<p:submenu label=" Usuário" icon="fa fa-user">
+				<p:menuitem outcome="/minha-carteira/meusDados.xhtml" value="Meus Dados"/>
+				<p:menuitem outcome="/minha-carteira/sair.xhtml" value="Sair"/>
+			</p:submenu>
+         </p:menubar>
+    </h:form>
+</ui:composition>

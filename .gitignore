@@ -1,6 +1,11 @@
 # Compiled class file
 *.class
 
+# Customizados..
+build/
+.DS_Store
+
+
 # Log file
 *.log
 

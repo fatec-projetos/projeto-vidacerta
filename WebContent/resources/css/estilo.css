@@ -1,0 +1,57 @@
+/**
+ * Ajustes do template
+ */
+
+ body {
+ 	margin: 0 auto;
+ 	font-family: monospace;
+ }
+ 
+ .fundo {
+ 	text-align: center;
+ }
+ 
+ .logo {
+ 	width: 400px;
+ 	margin-top: 100px;
+ }
+ 
+ .box-login {
+ 	position: relative;
+	text-align: left;
+	margin: 0 auto;
+	width: 400px;
+	margin-top: 50px;
+}
+
+.box-login input {
+	background: #FFF;
+	background-image: none;
+}
+
+.box-login input, .box-login button {
+	width: 100% !important;
+	font-family: monospace;
+}
+
+.box-login .ui-button {
+	background: #123e70;
+	border: none;
+	color: #FFF;
+	font-weight: normal
+}
+
+.box-login .cadastrar {
+	background: orange;
+}
+.box-login .cancelar {
+	background: red;
+}
+
+.box-login .actions {
+	width: 100%;
+}
+
+.box-login .actions tr, .box-login .actions td {
+	border: 0 !important;
+}

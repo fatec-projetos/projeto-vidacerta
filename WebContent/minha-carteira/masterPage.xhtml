@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:insert name="metadata"/>
+    <h:head>
+        <f:facet name="first">
+            <meta charset="UTF-8" />
+            <title><ui:insert name="tituloPagina" /> - Vida Certa</title>
+            <h:outputStylesheet library="css" name="estilo.css" />
+            
+        </f:facet>
+    </h:head>
+    <h:body>
+
+        <div class="cabecalho">
+            <h:graphicImage library="imagens" name="logo-vidacerta.png" alt="Logo do projeto vida certa." />
+        </div>
+        
+		<div class="menu">
+        	<ui:include src="menu.xhtml" />
+        </div>
+        
+        <div class="conteudo" style="height:100%">
+			<ui:insert name="conteudo" />
+        </div>
+            
+        <div class="rodape">
+            &copy; 2018 <a href="https://github.com/fatec-projetos/projeto-vidacerta" target="_blank">Vida Certa</a> / Todos os Direitos Reservados.
+        </div>
+
+    </h:body>
+
+</html>
+
+

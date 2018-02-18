@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:insert name="metadata"/>
+    <h:head>
+        <f:facet name="first"> 
+            <meta charset="UTF-8" />
+            <title>Vida Certa - Controle Financeiro Pessoal</title>
+            <h:outputStylesheet library="css" name="estilo.css" />
+        </f:facet>
+    </h:head>
+    <h:body>
+        <h:form id="login-form">
+            <div class="fundo">
+       			<h:graphicImage library="imagens" class="logo" name="logo-vidacerta.png" alt="Logo do projeto vida certa." />
+
+                <div class="conteudo">
+                    <div class="box-login">
+                        <h:outputText value="E-Mail"/>
+                        <br/>
+                        <p:inputText id="email" value="#{usuarioController.login}"/>
+                        <br/>
+                        <h:outputText value="Senha"/>
+                        <br/>
+                        <p:password id="senha" value="#{usuarioController.senha}"/>
+                        <br/>
+                        <p:messages id="messages"  
+                        	showDetail="false"  autoUpdate="true" closable="true" />
+                        <br/>
+                        
+                        <p:panelGrid class="actions">
+                        	<p:row columns="2">
+	                        	<p:column>
+									 <p:commandButton id="button" action="#{usuarioController.entrar}" update="messages" value="Entrar" icon="fa fa-sign-in" />
+	                        	</p:column>
+	                        	<p:column>
+	                        		<p:button
+	                        				outcome="/novoCadastro.xhtml"
+	                        				value="Cadastro"
+	                        				class="cadastrar"
+	                        				icon="fa fa-plus-square"/>
+	                        	</p:column>
+                        	</p:row>
+                        </p:panelGrid>
+                        
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+
+</html>
+
+
