@@ -25,7 +25,13 @@
 					              requiredMessage="Por favor, informe seu nome." 
 					              value="#{usuarioController.novoUsuario.nome}"
 								  required="true"></p:inputText>
-								  
+					
+						<p:outputLabel for="dataNascimento" value="Data Nascimento:" />
+	        			<p:calendar id="dataNascimento"
+	        					pattern="dd/MM/yyyy" 
+	        					value="#{usuarioController.novoUsuario.dataNascimento}" 
+	        					showOn="button" />
+					
 						<p:outputLabel for="sobrenome" value="Sobrenome:" />
 						<p:inputText  id="sobrenome"
 					              requiredMessage="Por favor, informe seu sobrenome." 

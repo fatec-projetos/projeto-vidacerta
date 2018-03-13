@@ -35,7 +35,7 @@ public class UsuarioController {
 
 		if (usuario != null) {
 			logado = true;
-			return "mochila/index.xhtml?faces-redirect=true";
+			return "minha-carteira/index.xhtml?faces-redirect=true";
 		}
 		FacesMessage msg = new FacesMessage("Usuário ou senha incorretos!", "INFO MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -50,10 +50,10 @@ public class UsuarioController {
 	public String sair() {
 		logado = false;
 
-		FacesMessage msg = new FacesMessage("Sessï¿½o encerrada!", "INFO MSG");
+		FacesMessage msg = new FacesMessage("Sessãoo encerrada!", "INFO MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 		return "index.xhtml?faces-redirect=true";
 	}
 
@@ -76,6 +76,11 @@ public class UsuarioController {
 		if (validarUsuario()) {
 			daoUsuario.cadastrarNovoUsuario(getNovoUsuario());
 			setNovoUsuario(new Usuario());
+			
+			FacesMessage msg = new FacesMessage("Usuário cadastrado com sucesso!", "INFO MSG");
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			return "index.xhtml?faces-redirect=true";
 		} else {
 			return "";

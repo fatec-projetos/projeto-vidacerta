@@ -2,6 +2,7 @@ package br.com.vidaCerta.model.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "usuario", schema="vidacerta")
@@ -20,6 +23,8 @@ public class Usuario {
 	private String  nome;
 	private String  sobrenome;
 	private String  email;
+	@Column(columnDefinition="TEXT")
+	@Type(type="text")
 	private String  senha;
 	
 	@Temporal(TemporalType.DATE)

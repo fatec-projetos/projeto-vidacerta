@@ -17,7 +17,9 @@
     <h:body>
 
         <div class="cabecalho">
-            <h:graphicImage library="imagens" name="logo-vidacerta.png" alt="Logo do projeto vida certa." />
+            <h:graphicImage library="imagens" class="logohome" name="logo-vidacerta.png" alt="Logo do projeto vida certa." />
+            
+            <h1 class="saudacao">Olá <span class="nameUser">#{usuarioController.usuario.nome}</span>, pronto para se organizar?</h1>
         </div>
         
 		<div class="menu">
@@ -29,7 +31,7 @@
         </div>
             
         <div class="rodape">
-            &copy; 2018 <a href="https://github.com/fatec-projetos/projeto-vidacerta" target="_blank">Vida Certa</a> / Todos os Direitos Reservados.
+            (c) 2018 <a href="https://github.com/fatec-projetos/projeto-vidacerta" target="_blank">Vida Certa</a> / Todos os Direitos Reservados.
         </div>
 
     </h:body>
