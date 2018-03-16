@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
     
         if (usuarioController == null || !usuarioController.isLogado() ) {
             String contextPath = ((HttpServletRequest)request).getContextPath();
-            ((HttpServletResponse)response).sendRedirect(contextPath + "/paginas/index.xhtml");
+            ((HttpServletResponse)response).sendRedirect(contextPath + "/");
         }
          
         chain.doFilter(request, response);
