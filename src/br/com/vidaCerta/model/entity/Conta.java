@@ -9,9 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.vidaCerta.interfaces.IModelFinder;
+
 @Entity
 @Table(name = "conta", schema="vidacerta")
-public class Conta {
+public class Conta implements IModelFinder {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,5 +56,10 @@ public class Conta {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	@Override
+	public int getId() {
+		// TODO Auto-generated method stub
+		return this.idConta;
 	}
 }

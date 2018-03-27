@@ -58,13 +58,10 @@ public class UsuarioController {
 	}
 
 	public void salvarUsuario() {
-
 		daoUsuario.salvarUsuario(getUsuario());
-
 		FacesMessage msg = new FacesMessage("Dados atualizados com sucesso!", "INFO MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-
 	}
 
 	/**

@@ -19,28 +19,14 @@ public class Transacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idTransacao;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTransacaoOrigem")
-	private Transacao transacaoOrigem; // pode ser null só é usado em caso de recorrência mensal
     
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idConta")
 	private Conta conta;
 	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCategoria")
-	private Categoria categoria;
-    
 	private double valor;
-	private TipoTransacao tipoTransacao;
-	private Integer quantidadeParcela;
-	private boolean pagou;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCriacao;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataParaPagamento;
-	private boolean lembrarPagamento;
 	private String titulo;
 	private String descricao;
 	
@@ -54,28 +40,12 @@ public class Transacao {
 		this.idTransacao = idTransacao;
 	}
 
-	public Transacao getTransacaoOrigem() {
-		return transacaoOrigem;
-	}
-
-	public void setTransacaoOrigem(Transacao transacaoOrigem) {
-		this.transacaoOrigem = transacaoOrigem;
-	}
-
 	public Conta getConta() {
 		return conta;
 	}
 	
 	public void setConta(Conta conta) {
 		this.conta = conta;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 	
 	public double getValor() {
@@ -85,39 +55,7 @@ public class Transacao {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-
-	public TipoTransacao getTipoTransacao() {
-		return tipoTransacao;
-	}
-
-	public void setTipoTransacao(TipoTransacao tipoTransacao) {
-		this.tipoTransacao = tipoTransacao;
-	}
-
-	public Integer getQuantidadeParcela() {
-		return quantidadeParcela;
-	}
-
-	public void setQuantidadeParcela(Integer quantidadeParcela) {
-		this.quantidadeParcela = quantidadeParcela;
-	}
-
-	public boolean isPagou() {
-		return pagou;
-	}
-
-	public void setPagou(boolean pagou) {
-		this.pagou = pagou;
-	}
-
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
+	
 	public Date getDataParaPagamento() {
 		return dataParaPagamento;
 	}
@@ -125,15 +63,7 @@ public class Transacao {
 	public void setDataParaPagamento(Date dataParaPagamento) {
 		this.dataParaPagamento = dataParaPagamento;
 	}
-
-	public boolean isLembrarPagamento() {
-		return lembrarPagamento;
-	}
-
-	public void setLembrarPagamento(boolean lembrarPagamento) {
-		this.lembrarPagamento = lembrarPagamento;
-	}
-
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -150,10 +80,5 @@ public class Transacao {
 		this.descricao = descricao;
 	}
 
-	public enum TipoTransacao {
-		Recorrencia,
-		Mensal,
-		Unica
-	};
 }
 

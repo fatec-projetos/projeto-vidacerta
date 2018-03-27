@@ -77,8 +77,9 @@ public class UsuarioDAO {
 		EntityManager em = conexao.getConexao();
 
 		em.getTransaction().begin();    
-	    
-		usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
+	    if(usuario.getIdUsuario() == null || usuario.getIdUsuario() == 0) {
+	    	usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
+	    }
 		em.merge(usuario);
 				
 		em.getTransaction().commit();

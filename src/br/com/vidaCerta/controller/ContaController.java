@@ -31,11 +31,18 @@ public class ContaController {
 	
 	@PostConstruct
 	public void postConstruct(){
-		listaConta.clear();
-		listaConta.addAll(daoConta.listaConta(loginController.getUsuario().getIdUsuario()));
+		this.carregarLista(loginController);
 	}
 
+	public void carregarLista (UsuarioController usr) {
+		listaConta.clear();
+		listaConta.addAll(daoConta.listaConta(usr.getUsuario().getIdUsuario()));
+	}
+	
 	public void salvarConta() {
+		if(contaSelecionada != null)
+			novaConta = contaSelecionada;
+		
 		novaConta.setUsuario(loginController.getUsuario());
 		daoConta.cadastrarConta(novaConta);
 		FacesMessage msg = new FacesMessage("Dados atualizados com sucesso!", "INFO MSG");
@@ -45,6 +52,7 @@ public class ContaController {
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.execute("PF('dlgDetalheConta').hide();");
 		this.postConstruct();
+		contaSelecionada = null;
 		novaConta = new Conta();
 	}
 	

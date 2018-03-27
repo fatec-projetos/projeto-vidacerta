@@ -10,7 +10,6 @@
 	      
    <!-- entidade mapeada -->
    <class>br.com.vidaCerta.model.entity.Usuario</class>
-   <class>br.com.vidaCerta.model.entity.Categoria</class>
    <class>br.com.vidaCerta.model.entity.Conta</class>
    <class>br.com.vidaCerta.model.entity.Transacao</class>
    
