@@ -2,6 +2,7 @@ package br.com.vidaCerta.model.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,12 +26,25 @@ public class Transacao {
 	private Conta conta;
 	
 	private double valor;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name="dataParaPagamento")
+    private Date dataParaPagamento;
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataParaPagamento;
+    @Column(name="dataFim")
+    private Date dataFim;
+
 	private String titulo;
 	private String descricao;
 	
-	
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
 	
 	public Integer getIdTransacao() {
 		return idTransacao;

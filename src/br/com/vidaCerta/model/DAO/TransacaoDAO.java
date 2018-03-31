@@ -13,21 +13,15 @@ import br.com.vidaCerta.model.utils.Conexao;
 public class TransacaoDAO {
 	Conexao conexao = new Conexao();
 	
-	public Transacao cadastrarTransacao(Transacao novaTransacao){
-		
+	public Transacao salvarTransacao(Transacao transacao){
 		EntityManager em = conexao.getConexao();
-
-		em.getTransaction().begin();    
-	    
-		if(novaTransacao.getIdTransacao() != null && novaTransacao.getIdTransacao() != 0) {
-			em.merge(novaTransacao);
-		} else {
-			em.persist(novaTransacao);
-		}
+		em.getTransaction().begin();
+		em.persist(transacao);
 				
 		em.getTransaction().commit();
+		em.close();
 		
-		return novaTransacao;
+		return transacao;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -39,10 +33,15 @@ public class TransacaoDAO {
 					
 			em.getTransaction().begin();
 		    
-			String sql = "SELECT t FROM Transacao t WHERE t.conta.idConta = :idConta";
+			String sql = "SELECT t FROM Transacao t WHERE t.dataFim is null";
+			if (idConta != null) sql += " and t.conta.idConta = :idConta";
+			if (dtInicio != null) sql += " and t.dataParaPagamento >= :dtInicio";
+			if (dtFim != null) sql += " and t.dataParaPagamento <= :dtFim";
 			
 			Query query = em.createQuery(sql);
-			query.setParameter("idConta", idConta);
+			if (idConta != null) query.setParameter("idConta", idConta);
+			if (dtInicio != null) query.setParameter("dtInicio", dtInicio);
+			if (dtFim != null) query.setParameter("dtFim", dtFim);
 			
 			listaResultado.addAll(query.getResultList());
 	

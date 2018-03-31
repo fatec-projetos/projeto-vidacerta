@@ -12,7 +12,8 @@ import br.com.vidaCerta.interfaces.IModelFinder;
 
 @FacesConverter("genericConverter")
 public class GenericConverter implements Converter {
-
+	
+	@Override
     public Object getAsObject(FacesContext contet, UIComponent component, String value) {
         if(value.equals(null) || value.equals("null") || value.equals(""))
             return null;

@@ -7,7 +7,7 @@
 	<ui:define name="tituloPagina">Transações</ui:define>
 	<ui:define name="conteudo">
 
-		<h:form id="formPesquisaContas">
+		<h:form id="formTransacao">
 			<p:panel style="height:100%">
 				<p:panel style="height:100%">
 					<p:outputLabel value="Transações"
@@ -32,8 +32,7 @@
 					<p:outputLabel for="conta" value="Conta: " />
 
 					<p:selectOneMenu id="conta"
-							 data-classe="ContaDAO"
-							 converter="genericConverter"
+							 converter="contaConverter"
 							 required="true"
 							 value="#{transacaoController.contaSelecionada}">
 							 <f:selectItem itemLabel="Selecione uma Conta" noSelectionOption="true" itemValue=""/>
@@ -50,11 +49,9 @@
 						 icon="fa fa-search">
 					 </p:commandButton>
 
-					<p:commandButton id="botaoAdicionar" update=":formDetalhesConta"
-							onclick="PF('dlgDetalheConta').show();" style="width:250px"
+					<p:commandButton id="botaoAdicionar" update=":formAdicionarTransacao"
+							onclick="PF('dlgAdicionarTransacao').show();" style="width:250px"
 							icon="fa fa-plus" value="Adicionar Transação">
-						<f:setPropertyActionListener value="#{contaController.novaConta}"
-							target="#{contaController.contaSelecionada}" />
 					</p:commandButton>
 
 					<p:spacer height="30px"></p:spacer>
@@ -67,30 +64,141 @@
 					value="#{transacaoController.listaTransacao}" paginator="true"
 					rowsPerPageTemplate="5,10,15"
 					emptyMessage="Não foi encontrado nenhuma transação.">
+					
+					<p:column headerText="Data">
+				        <h:outputText value="#{transacao.dataParaPagamento}">
+				        	 <f:convertDateTime pattern="dd/MM/yyyy" />
+				       	</h:outputText>
+				    </p:column>
+					
+					<p:column headerText="Titulo">
+				        <h:outputText value="#{transacao.titulo}">
+				       	</h:outputText>
+				    </p:column>
 
 					<p:column headerText="Valor">
 						<h:outputText value="#{transacao.valor}">
 						</h:outputText>
 					</p:column>
-
-					<p:column headerText="Alterar" style="width:10%">
-						<p:commandButton id="botaoAlterar" update=":formDetalhesConta"
-							onclick="PF('dlgDetalheConta').show();" style="width:80px"
-							icon="fa fa-pencil">
-							<f:setPropertyActionListener value="#{transacao}"
-								target="#{transacaoController.transacaoSelecionada}" />
-						</p:commandButton>
-					</p:column>
+					
+					<p:column headerText="Alterar">
+				    <p:commandButton id="botaoAlterar" update=":formAdicionarTransacao"
+			 						 onclick="PF('dlgDetalheConta').show();" style="width:80px"
+			 						 icon="fa fa-pencil">
+	 				    <f:setPropertyActionListener value="#{transacao}" target="#{transacaoController.transacaoSelecionada}" />
+	 				</p:commandButton>
+				    </p:column>
+				    
+				    <p:column headerText="Excluir">
+				    	<p:commandButton id="botaoExcluir" 
+			 						     action="#{transacaoController.removerTransacao}"
+			 						     update="formAdicionarTransacao"
+			 						     icon="fa fa-trash-o">
+	 						     
+	 						     <p:confirm header="Confirmação" message="Tem certeza que deseja remover?" icon="ui-icon-alert" />
+	 						     
+	 						     <f:setPropertyActionListener value="#{transacao}" target="#{transacaoController.transacaoSelecionada}" />
+	 					</p:commandButton>
+				    </p:column>
 				</p:dataTable>
 			</p:panel>
 		</h:form>
 		
-		<p:dialog header="Transação" resizable="false" widgetVar="dlgDetalheConta" modal="true" height="400" width="500">
-   			<h:form id="formDetalhesConta">
-
-				<p:commandButton id="button" style="width: 100%;"
-						 action="#{contaController.salvarConta}" value="Salvar Conta"
-						 icon="fa fa-save" />
+		<p:dialog header="Transação" resizable="false" widgetVar="dlgAdicionarTransacao" modal="true" height="auto" width="auto">
+   			<h:form id="formAdicionarTransacao">
+   				
+   				<h:panelGrid columns="2" cellpadding="5">
+		 			<p:outputLabel for="contaId" value="Conta:" />
+		 			<p:selectOneMenu id="contaId"
+							 	converter="contaConverter"
+								value="#{transacaoController.contaSelecionada}">
+								<f:selectItem  itemLabel="Selecione a conta" itemValue="" noSelectionOption="true"/>
+								<f:selectItems value="#{transacaoController.listaConta}" 
+								var="item" itemLabel="#{item.descricao}"
+								itemValue="#{item}" required="true"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="data" value="Data:" />
+	        		<p:calendar id="data"
+	        					pattern="dd/MM/yyyy" 
+	        					value="#{transacaoController.novaTransacao.dataParaPagamento}" 
+	        					showOn="button" required="true"/>
+	        					
+	        		<p:outputLabel for="tituloTransacao" value="Título: " />
+				 	<p:inputText  id="tituloTransacao"
+			              requiredMessage="Por favor, informe um título." 
+			              value="#{transacaoController.novaTransacao.titulo}"
+						  required="true"></p:inputText>
+						  
+					<p:outputLabel for="desricaoTransacao" value="Descrição:" />
+				 	<p:inputText  id="desricaoTransacao"
+			              requiredMessage="Por favor, informe uma descrição." 
+			              value="#{transacaoController.novaTransacao.descricao}"></p:inputText>
+						  
+					<p:outputLabel for="valorTransacao" value="Valor:" />
+				 	<p:inputText  id="valorTransacao"
+			              requiredMessage="Por favor, informe um valor." 
+			              value="#{transacaoController.novaTransacao.valor}"
+						  required="true"></p:inputText>
+					
+				</h:panelGrid>
+				
+				<p:commandButton id="button" 
+					     style="width: 100%;" 
+					     action="#{transacaoController.adicionarTransacao}"
+					     value="Salvar Transação" 
+					     update=":formTransacao"
+					     oncomplete="PF('dlgAdicionarTransacao').hide();"
+					     icon="fa fa-save" />
+   			</h:form>
+		</p:dialog>
+		
+		<p:dialog header="Transação" resizable="false" widgetVar="dlgAlterarTransacao" modal="true" height="auto" width="auto">
+   			<h:form id="formAlterarTransacao">
+   				
+   				<h:panelGrid columns="2" cellpadding="5">
+		 			<p:outputLabel for="contaId" value="Conta:" />
+		 			<p:selectOneMenu id="contaId"
+							 	converter="contaConverter"
+								value="#{transacaoController.transacaoSelecionada.conta}">
+								<f:selectItem  itemLabel="Selecione a conta" itemValue="" noSelectionOption="true"/>
+								<f:selectItems value="#{transacaoController.listaConta}" 
+								var="item" itemLabel="#{item.descricao}"
+								itemValue="#{item}" required="true"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="data" value="Data:" />
+	        		<p:calendar id="data"
+	        					pattern="dd/MM/yyyy" 
+	        					value="#{transacaoController.transacaoSelecionada.dataParaPagamento}" 
+	        					showOn="button" required="true"/>
+	        					
+	        		<p:outputLabel for="tituloTransacao" value="Título: " />
+				 	<p:inputText  id="tituloTransacao"
+			              requiredMessage="Por favor, informe um título." 
+			              value="#{transacaoController.transacaoSelecionada.titulo}"
+						  required="true"></p:inputText>
+						  
+					<p:outputLabel for="desricaoTransacao" value="Descrição:" />
+				 	<p:inputText  id="desricaoTransacao"
+			              requiredMessage="Por favor, informe uma descrição." 
+			              value="#{transacaoController.transacaoSelecionada.descricao}"></p:inputText>
+						  
+					<p:outputLabel for="valorTransacao" value="Valor:" />
+				 	<p:inputText  id="valorTransacao"
+			              requiredMessage="Por favor, informe um valor." 
+			              value="#{transacaoController.transacaoSelecionada.valor}"
+						  required="true"></p:inputText>
+					
+				</h:panelGrid>
+				
+				<p:commandButton id="button" 
+					     style="width: 100%;" 
+					     action="#{transacaoController.alterarTransacao}"
+					     value="Salvar Transação" 
+					     update=":formTransacao"
+					     oncomplete="PF('dlgAlterarTransacao').hide();"
+					     icon="fa fa-save" />
    			</h:form>
 		</p:dialog>
 

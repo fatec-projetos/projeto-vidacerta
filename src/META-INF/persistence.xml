@@ -17,8 +17,8 @@
 	  <!-- dados da conexao -->
 	   <property name="javax.persistence.jdbc.driver"   value="com.mysql.jdbc.Driver" />
 	   <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost/vidacerta" />
-	   <property name="javax.persistence.jdbc.user"     value="fatec" />
-	   <property name="javax.persistence.jdbc.password" value="fatec" />
+	   <property name="javax.persistence.jdbc.user"     value="vidacerta" />
+	   <property name="javax.persistence.jdbc.password" value="vidacerta" />
 
 	   <!--  propriedades do hibernate -->
 	   <property name="hibernate.dialect"    value="org.hibernate.dialect.MySQL5InnoDBDialect" />

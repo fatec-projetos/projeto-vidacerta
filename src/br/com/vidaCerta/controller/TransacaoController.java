@@ -11,8 +11,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.context.RequestContext;
-
 import br.com.vidaCerta.model.DAO.TransacaoDAO;
 import br.com.vidaCerta.model.entity.Conta;
 import br.com.vidaCerta.model.entity.Transacao;
@@ -28,7 +26,6 @@ public class TransacaoController {
 	List<Transacao> listaTransacao = new ArrayList<Transacao>();
 
 	Transacao novaTransacao = new Transacao();
-
 	Transacao transacaoSelecionada = new Transacao();
 
 	Conta contaSelecionada = new Conta();
@@ -47,15 +44,18 @@ public class TransacaoController {
 	
 	public void filtrar () {
 		listaTransacao.clear();
+		if(getContaSelecionada() == null) {
+			setContaSelecionada(new Conta());
+		}
 		listaTransacao.addAll(daoTransacao.listaTransacao(contaSelecionada.getIdConta(), dtIni, dtFim));
 	}
 
-	public void salvarTransacao() {
+	/*public void salvarTransacao() {
 		if (transacaoSelecionada != null)
 			novaTransacao = transacaoSelecionada;
 
 		novaTransacao.setConta(contaSelecionada);
-		daoTransacao.cadastrarTransacao(novaTransacao);
+		daoTransacao.salvarTransacao(novaTransacao);
 		FacesMessage msg = new FacesMessage("Dados atualizados com sucesso!", "INFO MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -65,7 +65,53 @@ public class TransacaoController {
 		this.filtrar();
 		transacaoSelecionada = new Transacao();
 		novaTransacao = new Transacao();
+	}*/
+	
+	/**
+	 * Método responsável pode adicionar uma transação.
+	 * 
+	 */
+	public void adicionarTransacao(){
+		novaTransacao.setConta(contaSelecionada);
+		daoTransacao.salvarTransacao(novaTransacao);
+		
+		filtrar();
+		
+		FacesMessage msg = new FacesMessage("Transação cadastrada com sucesso!", "INFO MSG");
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        novaTransacao = new Transacao();
 	}
+	
+	/**
+	 * Método responsável por remover uma transação.
+	 */
+	public void removerTransacao(){
+		transacaoSelecionada.setDataFim(new Date());
+		daoTransacao.salvarTransacao(novaTransacao);
+		
+		filtrar();
+		
+		FacesMessage msg = new FacesMessage("Transação removida com sucesso!", "INFO MSG");
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
+	/**
+	 * Método reponsável por alterar uma transação.
+	 */
+	public void alterarTransacao(){
+		daoTransacao.salvarTransacao(novaTransacao);
+		
+		filtrar();
+		
+		FacesMessage msg = new FacesMessage("Transação alterada com sucesso!", "INFO MSG");
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+	}
+	
 
 	public List<Transacao> getListaTransacao() {
 		return listaTransacao;
